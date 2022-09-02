@@ -51,18 +51,44 @@
 .categories_blog {
   display: flex;
   justify-content: space-around;
-}
-
-.categories_blog li {
-  list-style: none;
-  cursor: pointer;
+  margin-right: 50px;
 }
 
 .categories {
+  border: none;
+  background: none;
   font-size: 20px;
   font-weight: bold;
-  margin-right: 40px;
-  margin-bottom: 30px;
+}
+
+.categories:hover {
+  border: 1px solid grey;
 }
 
 /* end : categories section */
+
+/* start : card section */
+
+.cards {
+  margin-bottom: 30px;
+}
+
+.thumbnail_img img {
+  width: 100%;
+}
+
+.authour_img {
+  width: 50px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.author_details {
+  margin-left: 20px;
+}
+
+.views {
+  margin-left: 10px;
+}
+
+/* end : card section */
