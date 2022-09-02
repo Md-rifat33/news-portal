@@ -1,0 +1,68 @@
+/* start :  Navigation section */
+.navigation_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation_image {
+  display: flex;
+  align-items: center;
+}
+
+.navigation_image img {
+  width: 100px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.navigation_title {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.navigation_title:hover {
+  color: dodgerblue;
+}
+
+.list_items {
+  display: flex;
+  align-items: center;
+}
+.list_items li {
+  list-style: none;
+  margin-right: 20px;
+  margin-top: 18px;
+  font-size: 23px;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.list_items li:hover {
+  margin-top: 20px;
+  color: dodgerblue;
+}
+
+/* end : Navigation section */
+
+/* start : categories section */
+
+.categories_blog {
+  display: flex;
+  justify-content: space-around;
+}
+
+.categories_blog li {
+  list-style: none;
+  cursor: pointer;
+}
+
+.categories {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 40px;
+  margin-bottom: 30px;
+}
+
+/* end : categories section */
