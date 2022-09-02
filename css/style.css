@@ -61,16 +61,13 @@
   font-weight: bold;
 }
 
-.categories:hover {
-  border: 1px solid grey;
-}
-
 /* end : categories section */
 
 /* start : card section */
 
 .cards {
   margin-bottom: 30px;
+  cursor: pointer;
 }
 
 .thumbnail_img img {
@@ -87,8 +84,16 @@
   margin-left: 20px;
 }
 
+.card_details {
+  text-overflow: ellipsis;
+}
+
 .views {
   margin-left: 10px;
 }
 
 /* end : card section */
+
+/* start : footer */
+
+/* end : footer */
