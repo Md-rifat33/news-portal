@@ -1,14 +1,17 @@
 const loadCategories = async () => {
-  const url = `https://openapi.programming-hero.com/api/news/categories`
-  const res = await fetch(url)
-  const data = await res.json()
-  displayCategories(data.data.news_category)
+  try {
+    const url = `https://openapi.programming-hero.com/api/news/categories`
+    const res = await fetch(url)
+    const data = await res.json()
+    displayCategories(data.data.news_category)
+  } catch (e) {
+    alert('Please check..')
+  }
 }
 
 const displayCategories = (categories) => {
   const categoriesBlog = document.getElementById('categories_blog')
   categories.forEach((category) => {
-    console.log(category)
     const categoriesLi = document.createElement('button')
     categoriesLi.onclick = () => {
       toggleSpinner(true)
@@ -27,10 +30,14 @@ const displayCategories = (categories) => {
 }
 
 const loadFullDetails = async (categoriesId) => {
-  const url = ` https://openapi.programming-hero.com/api/news/category/${categoriesId}`
-  const res = await fetch(url)
-  const data = await res.json()
-  displayFullDetails(data.data)
+  try {
+    const url = ` https://openapi.programming-hero.com/api/news/category/${categoriesId}`
+    const res = await fetch(url)
+    const data = await res.json()
+    displayFullDetails(data.data)
+  } catch (err) {
+    alert('Something went wrong')
+  }
 }
 
 const displayFullDetails = (details) => {
@@ -53,7 +60,6 @@ const displayFullDetails = (details) => {
   const newsDetails = document.getElementById('news_details')
   newsDetails.textContent = ``
   details.forEach((detail) => {
-    console.log(detail)
     const newsDiv = document.createElement('div')
     newsDiv.onclick = () => {
       //
@@ -117,16 +123,19 @@ const displayFullDetails = (details) => {
 }
 
 const loadNewsDetails = async (newsId) => {
-  const url = `https://openapi.programming-hero.com/api/news/${newsId}
+  try {
+    const url = `https://openapi.programming-hero.com/api/news/${newsId}
 `
-  const res = await fetch(url)
-  const data = await res.json()
+    const res = await fetch(url)
+    const data = await res.json()
 
-  displayNewsDetails(data.data[0])
+    displayNewsDetails(data.data[0])
+  } catch (error) {
+    alert('Something went wrong')
+  }
 }
 
 const displayNewsDetails = (news) => {
-  console.log(news)
   const modalTitle = document.getElementById('newsDetailsModalLabel')
   modalTitle.innerText = `News Details`
 
