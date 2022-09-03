@@ -82,11 +82,11 @@ const displayFullDetails = (details) => {
                 <p id="text_overflow" class="card-text card_details fst-italic text-secondary text-truncate ">
                  ${detail.details} 
                 </p>
-                <div class="d-flex justify-content-between align-items-center ">
-                <div class="d-flex justify-content-around align-items-center">
+                <div class="d-flex justify-content-between align-items-center flex-sm-column flex-xs-column">
+                <div class="d-flex justify-content-around align-items-center flex-sm-column flex-xs-column">
                 <img class="authour_img" src="${detail.author.img}">
                 <article class="author_details">
-                <h5>${
+                <h5 class="sm-ms-3">${
                   detail.author.name ? detail.author.name : 'No author found'
                 }</h5>
                 <h6>${

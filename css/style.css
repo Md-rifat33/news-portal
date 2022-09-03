@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.hamburger {
+  display: none;
+}
+
 .navigation_image {
   display: flex;
   align-items: center;
@@ -99,3 +103,19 @@
 /* start : footer */
 
 /* end : footer */
+
+/* Media Queries*/
+
+@media only screen and (max-width: 668px) {
+  .navigation_container {
+    flex-direction: column;
+  }
+
+  .list_items li {
+    font-size: 21px;
+  }
+
+  .categories_blog {
+    flex-direction: column;
+  }
+}
