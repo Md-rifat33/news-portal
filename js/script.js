@@ -43,7 +43,7 @@ const displayFullDetails = (details) => {
   // display news blog found
   const newsBlog = document.getElementById('news_blog')
   if (details.length) {
-    newsBlog.innerText = details.length + ' news blog found'
+    newsBlog.innerText = `${details.length + ' news blog found'}`
   } else {
     newsBlog.innerText = details.length + ' news blog found'
   }
@@ -52,6 +52,10 @@ const displayFullDetails = (details) => {
   details.forEach((detail) => {
     console.log(detail)
     const newsDiv = document.createElement('div')
+    newsDiv.onclick = () => {
+      //
+      loadNewsDetails(detail._id)
+    }
     newsDiv.classList.add('card')
     newsDiv.classList.add('cards')
     newsDiv.innerHTML = `
@@ -66,8 +70,8 @@ const displayFullDetails = (details) => {
             <div class="col-sm-12 col-md-6 col-lg-8">
               <div class="card-body">
                 <h5 class="card-title ">${detail.title}</h5>
-                <p class="card-text card_details fst-italic text-secondary">
-                 ${detail.details.slice(0, 500)} 
+                <p id="text_overflow" class="card-text card_details fst-italic text-secondary text-truncate ">
+                 ${detail.details} 
                 </p>
                 <div class="d-flex justify-content-between align-items-center ">
                 <div class="d-flex justify-content-around align-items-center">
@@ -103,47 +107,57 @@ const displayFullDetails = (details) => {
             </div>
           </div>
     `
-    const modalTitle = document.getElementById('newsDetailsModalLabel')
-    modalTitle.innerText = `News Details`
-
-    const modalBody = document.getElementById('modals_body')
-    modalBody.innerHTML = `
-    
-    <h6>Title : ${detail.title}</h6>
-
-    <p><span class="fw-semibold">Details :</span> ${detail.details.slice(
-      0,
-      200
-    )}</p>
-    <div class="d-flex justify-content-around align-items-center">
-    <div>
-    <h6>Author : ${
-      detail.author.name ? detail.author.name : 'No author found'
-    }</h6>
-    <img class="authour_img text-center" src="${detail.author.img}">
-    <p>Relase Date : ${
-      detail.author.published_date
-        ? detail.author.published_date
-        : 'No published date found'
-    }</p>
-    </div>
-
-    <div>
-    <h6>Ratings Number : ${detail.rating.number}</h6>
-    <h6>Ratings Badge : ${detail.rating.badge}</h6>
-    <article class="d-flex align-items-center justify-content-center">
-     <i class="fa-solid fa-eye"></i>
-    <h6 class="ms-2">${detail.total_view}</h6>
-    </article>
-    </div>
-    
-    </div>
-    `
-
     newsDetails.appendChild(newsDiv)
   })
 
   toggleSpinner(false)
+}
+
+const loadNewsDetails = async (newsId) => {
+  const url = `https://openapi.programming-hero.com/api/news/${newsId}
+`
+  const res = await fetch(url)
+  const data = await res.json()
+
+  displayNewsDetails(data.data[0])
+}
+
+const displayNewsDetails = (news) => {
+  console.log(news)
+  const modalTitle = document.getElementById('newsDetailsModalLabel')
+  modalTitle.innerText = `News Details`
+
+  const modalBody = document.getElementById('modals_body')
+  modalBody.innerHTML = `
+  <img class="img-fluid" src="${news.image_url}">
+  <h6 class="mt-3">Title : ${news.title}</h6>
+  <p class="text-truncate">Description : ${news.details}</p>
+  <div class="d-flex justify-content-between align-items-center">
+  
+  <div>
+  <h6>Author Name : ${
+    news.author.name ? news.author.name : 'No author found'
+  }</h6>
+  <img class="authour_img text-center" src="${news.author.img}">
+  <p>Published Date : ${
+    news.author.published_date
+      ? news.author.published_date
+      : 'No published date found'
+  }</p>
+  </div>
+
+
+
+  <div class="d-flex justify-content-around align-items-center">
+  
+   <i class="fa-solid fa-eye"></i>
+  <h6 class="ms-2">${news.total_view ? news.total_view : 'No view'}</h6>
+    
+  </div>
+
+  
+  </div>
+  `
 }
 
 // loader
