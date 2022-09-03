@@ -34,6 +34,9 @@ const loadFullDetails = async (categoriesId) => {
 }
 
 const displayFullDetails = (details) => {
+  details.sort((a, b) => {
+    return b.total_view - a.total_view
+  })
   const noNews = document.getElementById('no_news_message')
   if (details.length === 0) {
     noNews.classList.remove('d-none')
