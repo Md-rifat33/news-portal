@@ -14,6 +14,8 @@ const displayCategories = (categories) => {
   categories.forEach((category) => {
     const categoriesLi = document.createElement('button')
     categoriesLi.onclick = () => {
+      const footer = document.getElementById('footer')
+      footer.classList.remove('d-none')
       toggleSpinner(true)
       loadFullDetails(
         category.category_id ? category.category_id : 'No News Found'
@@ -82,8 +84,8 @@ const displayFullDetails = (details) => {
                 <p id="text_overflow" class="card-text card_details fst-italic text-secondary text-truncate ">
                  ${detail.details} 
                 </p>
-                <div class="d-flex justify-content-between align-items-center flex-sm-column flex-xs-column">
-                <div class="d-flex justify-content-around align-items-center flex-sm-column flex-xs-column">
+                <div class="d-flex justify-content-between align-items-center card_details">
+                <div class="d-flex justify-content-around align-items-center  author_details">
                 <img class="authour_img" src="${detail.author.img}">
                 <article class="author_details">
                 <h5 class="sm-ms-3">${

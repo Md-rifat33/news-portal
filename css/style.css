@@ -118,4 +118,9 @@
   .categories_blog {
     flex-direction: column;
   }
+
+  .card_details,
+  .author_details {
+    flex-direction: column;
+  }
 }
