@@ -123,4 +123,7 @@
   .author_details {
     flex-direction: column;
   }
+  .footer_description {
+    font-size: 20px;
+  }
 }
