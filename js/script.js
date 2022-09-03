@@ -8,15 +8,10 @@ const loadCategories = async () => {
 const displayCategories = (categories) => {
   const categoriesBlog = document.getElementById('categories_blog')
   categories.forEach((category) => {
-    const noNews = document.getElementById('no_news_message')
-    if (category === 0) {
-      noNews.classList.remove('d-none')
-    } else {
-      noNews.classList.add('d-none')
-    }
     console.log(category)
     const categoriesLi = document.createElement('button')
     categoriesLi.onclick = () => {
+      toggleSpinner(true)
       loadFullDetails(
         category.category_id ? category.category_id : 'No News Found'
       )
@@ -39,6 +34,19 @@ const loadFullDetails = async (categoriesId) => {
 }
 
 const displayFullDetails = (details) => {
+  const noNews = document.getElementById('no_news_message')
+  if (details.length === 0) {
+    noNews.classList.remove('d-none')
+  } else {
+    noNews.classList.add('d-none')
+  }
+  // display news blog found
+  const newsBlog = document.getElementById('news_blog')
+  if (details.length) {
+    newsBlog.innerText = details.length + ' news blog found'
+  } else {
+    newsBlog.innerText = details.length + ' news blog found'
+  }
   const newsDetails = document.getElementById('news_details')
   newsDetails.textContent = ``
   details.forEach((detail) => {
@@ -49,7 +57,7 @@ const displayFullDetails = (details) => {
     newsDiv.innerHTML = `
     
     <div data-bs-toggle="modal"
-          data-bs-target="#cardModal"  class="row g-0 d-flex justify-content-around align-items-center" >
+        data-bs-target="#newsDetailsModal" class="row g-0 d-flex justify-content-around align-items-center" >
             <div class="col-sm-12 col-md-6 col-lg-4 thumbnail_img">
               <img src="${
                 detail.thumbnail_url
@@ -59,7 +67,7 @@ const displayFullDetails = (details) => {
               <div class="card-body">
                 <h5 class="card-title ">${detail.title}</h5>
                 <p class="card-text card_details fst-italic text-secondary">
-                 ${detail.details.slice(0, 500)}
+                 ${detail.details.slice(0, 500)} 
                 </p>
                 <div class="d-flex justify-content-between align-items-center ">
                 <div class="d-flex justify-content-around align-items-center">
@@ -95,27 +103,58 @@ const displayFullDetails = (details) => {
             </div>
           </div>
     `
-    const modalTitle = document.getElementById('cardModalLabel')
-    modalTitle.innerText = 'Answering Questions'
-    const modalBody = document.getElementById('modal_body')
+    const modalTitle = document.getElementById('newsDetailsModalLabel')
+    modalTitle.innerText = `News Details`
+
+    const modalBody = document.getElementById('modals_body')
     modalBody.innerHTML = `
     
-    <h5>01.What is the difference between var,let and const?</h5>
-    <p> <span class="fw-bold">Ans :</span> All three of these three keywords have similarities in their syntax for declaring variables. However, they differ in their usage and scope.</p>
+    <h6>Title : ${detail.title}</h6>
 
-    <h5>02.What is the difference between arrow function and regular function?</h5>
-    <p> <span class="fw-bold">Ans :</span> Unlike regular functions, arrow functions do not have their own this . The value of this inside an arrow function remains the same throughout the lifecycle of the function and is always bound to the value of this in the closest non-arrow parent function..</p>
+    <p><span class="fw-semibold">Details :</span> ${detail.details.slice(
+      0,
+      200
+    )}</p>
+    <div class="d-flex justify-content-around align-items-center">
+    <div>
+    <h6>Author : ${
+      detail.author.name ? detail.author.name : 'No author found'
+    }</h6>
+    <img class="authour_img text-center" src="${detail.author.img}">
+    <p>Relase Date : ${
+      detail.author.published_date
+        ? detail.author.published_date
+        : 'No published date found'
+    }</p>
+    </div>
 
-
-    <h5>03.What is the difference between map, forEach,filter and find?</h5>
-    <p> <span class="fw-bold">Ans :</span> The forEach() method does not create a new array based on the given array. The map() method creates an entirely new array. The forEach() method returns “undefined“. The map() method returns the newly created array according to the provided callback function.</p>
-
-
-    <h5>04.Why should we use template string?</h5>
-    <p> <span class="fw-bold">Ans :</span> Template strings are a powerful feature of modern JavaScript released in ES6. It lets us insert/interpolate variables and expressions into strings without needing to concatenate like in older versions of JavaScript. It allows us to create strings that are complex and contain dynamic elements.</p>
+    <div>
+    <h6>Ratings Number : ${detail.rating.number}</h6>
+    <h6>Ratings Badge : ${detail.rating.badge}</h6>
+    <article class="d-flex align-items-center justify-content-center">
+     <i class="fa-solid fa-eye"></i>
+    <h6 class="ms-2">${detail.total_view}</h6>
+    </article>
+    </div>
+    
+    </div>
     `
+
     newsDetails.appendChild(newsDiv)
   })
+
+  toggleSpinner(false)
+}
+
+// loader
+
+const toggleSpinner = (isLoading) => {
+  const spinnerSection = document.getElementById('loader')
+  if (isLoading) {
+    spinnerSection.classList.remove('d-none')
+  } else {
+    spinnerSection.classList.add('d-none')
+  }
 }
 
 loadCategories()
